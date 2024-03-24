@@ -13,6 +13,8 @@
     <meta name="description" content="">
 
     <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="./assets/login.css">
+    <script src="javascript/log.js" defer></script>
 </head>
 
 <body>
@@ -20,9 +22,9 @@
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
         <nav>
             <ul>
-                <li>projets</li>
-                <li>contact</li>
-                <li><a href=""></a>login</li>
+                <li><a href="index.html">projets</a></li>
+                <li><a href="index.html">contact</a></li>
+                <li><a id="liLogin">login</a></li>
                 <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
         </nav>
@@ -32,16 +34,19 @@
         <form action="">
             <div class="email-container">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" autocomplete="off">
+                <input type="text" id="email" autocomplete="off">
+                <span id="spanEmail">Format de l'email incorrect</span>
             </div>
             <div class="password-container">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" autocomplete="off">
+                <span id="spanPassword"></span>
             </div>
+            <span id="spanEmailPassword"></span>
 
             <input type="submit" value="Se connecter">
         </form>
-        <span>Mot de passe oublié</span>
+        <span id="forgetPassword">Mot de passe oublié</span>
     </section>
     <footer id="footer-login">
         <nav>
