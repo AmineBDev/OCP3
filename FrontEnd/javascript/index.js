@@ -25,17 +25,19 @@ function projectsDisplay(categoryId) {
     );
   }
 
-  gallery.innerHTML = filteredProjects
-    .map(
-      (project) =>
-        `
-      <figure>
-      <img src=${project.imageUrl} alt="${project.title}">
-      <figcaption>${project.title}</figcaption>
-      </figure>
-  `
-    )
-    .join("");
+  gallery.innerHTML = "";
+  filteredProjects.forEach((project) => {
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    img.src = project.imageUrl;
+    img.alt = project.title;
+    const figcaption = document.createElement("figcaption");
+    figcaption.textContent = project.title;
+
+    figure.appendChild(img);
+    figure.appendChild(figcaption);
+    gallery.appendChild(figure);
+  });
 }
 
 window.addEventListener("load", () => {
@@ -57,13 +59,17 @@ async function fetchFilter() {
 function filtersDisplay() {
   filter.innerHTML = `
       <li><button class="active" dataId="0">Tous</button></li>
-      ${filtersData
-        .map(
-          (filter) =>
-            `<li><button dataId="${filter.id}">${filter.name}</button></li>`
-        )
-        .join("")}
-    `;
+      `;
+
+  for (let i = 0; i < filtersData.length; i++) {
+    const filterItem = filtersData[i];
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.setAttribute("dataId", filterItem.id);
+    button.textContent = filterItem.name;
+    li.appendChild(button);
+    filter.appendChild(li);
+  }
 }
 
 function filterStyle() {
@@ -79,34 +85,6 @@ function filterStyle() {
       console.log(categoryId);
 
       projectsDisplay(categoryId);
-    });
-  });
-}
-
-const projectsModale = document.querySelector(".projects-pictures-modale");
-
-function projectsModales() {
-  console.log(projectsData);
-
-  projectsModale.innerHTML = projectsData
-    .map(
-      (project) =>
-        `
-        <figure id="figureModale">
-        <img src=${project.imageUrl} alt="${project.title}">
-        <i class="fa-solid fa-trash-can" data-project-id="${project.id}"></i>
-        </figure>
-    `
-    )
-    .join("");
-
-  projectsModale.querySelectorAll(".fa-trash-can").forEach((icon) => {
-    icon.addEventListener("click", (e) => {
-      e.stopPropagation();
-
-      const projectId = e.target.getAttribute("data-project-id");
-      console.log(projectId);
-      deleteProject(projectId);
     });
   });
 }
@@ -159,6 +137,38 @@ document.addEventListener("click", (e) => {
 
 // supprimer projets
 
+const projectsModale = document.querySelector(".projects-pictures-modale");
+
+function projectsModales() {
+  console.log(projectsData);
+
+  projectsModale.innerHTML = "";
+  projectsData.forEach((project) => {
+    const figure = document.createElement("figure");
+    figure.id = "figureModale";
+    const img = document.createElement("img");
+    img.src = project.imageUrl;
+    img.alt = project.title;
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa-solid", "fa-trash-can");
+    deleteIcon.setAttribute("data-project-id", project.id);
+
+    figure.appendChild(img);
+    figure.appendChild(deleteIcon);
+    projectsModale.appendChild(figure);
+  });
+
+  projectsModale.querySelectorAll(".fa-trash-can").forEach((icon) => {
+    icon.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      const projectId = e.target.getAttribute("data-project-id");
+      console.log(projectId);
+      deleteProject(projectId);
+    });
+  });
+}
+
 function deleteProject(projectId) {
   fetch("http://localhost:5678/api/works/" + projectId, {
     method: "DELETE",
@@ -180,13 +190,15 @@ const inputFile = document.getElementById("photo");
 let isModaleFormOpen = false;
 
 function categoriesSelect() {
-  selectCategory.innerHTML =
-    '<option value="" selected></option>' +
-    filtersData
-      .map(
-        (category) => `<option value="${category.id}">${category.name}</option>`
-      )
-      .join("");
+  selectCategory.innerHTML = '<option value="" selected></option>';
+
+  for (let i = 0; i < filtersData.length; i++) {
+    const category = filtersData[i];
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.name;
+    selectCategory.appendChild(option);
+  }
 }
 
 modaleAdd.addEventListener("click", () => {
@@ -295,3 +307,20 @@ function checkFormValidity() {
 titreInput.addEventListener("input", checkFormValidity);
 selectCategory.addEventListener("input", checkFormValidity);
 inputFile.addEventListener("input", checkFormValidity);
+
+// redirection vers section contact dans le lien du login
+
+document.addEventListener("DOMContentLoaded", () => {
+  const sectionToScroll = window.location.hash.substring(1);
+
+  if (sectionToScroll) {
+    setTimeout(function () {
+      const targetSection = document.getElementById(sectionToScroll);
+      if (targetSection) {
+        window.scrollTo({
+          top: targetSection.offsetTop,
+        });
+      }
+    }, 100);
+  }
+});
