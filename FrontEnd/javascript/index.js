@@ -4,6 +4,7 @@ const filter = document.querySelector(".filter");
 let projectsData = [];
 let filtersData = [];
 
+// RECUPERER PROJETS DEPUIS L'API
 async function fetchProjects() {
   await fetch("http://localhost:5678/api/works")
     .then((res) => res.json())
@@ -14,6 +15,7 @@ async function fetchProjects() {
   projectsModales();
 }
 
+// AFFICHER LES PROJETS
 function projectsDisplay(categoryId) {
   let filteredProjects;
 
@@ -45,6 +47,7 @@ window.addEventListener("load", () => {
   fetchProjects();
 });
 
+// RECUPERER CATEGORIES DEPUIS L'API
 async function fetchFilter() {
   await fetch("http://localhost:5678/api/categories")
     .then((res) => res.json())
@@ -56,6 +59,7 @@ async function fetchFilter() {
   categoriesSelect();
 }
 
+// AFFICHER LES CATEGORIES (FILTRES)
 function filtersDisplay() {
   filter.innerHTML = `
       <li><button class="active" dataId="0">Tous</button></li>
@@ -115,14 +119,19 @@ function logout() {
 }
 
 // MODALES
-
-adminModifier.addEventListener("click", (e) => {
-  e.stopPropagation();
-  modaleProject.style.display = "block";
-});
-
+const editionMode = document.querySelector(".admin_edition_mode");
 const iconCloseModale = document.querySelector(".js-modale-close");
 
+adminModifier.addEventListener("click", openModale);
+editionMode.addEventListener("click", openModale);
+
+// OUVRIR MODALE
+function openModale(e) {
+  e.stopPropagation();
+  modaleProject.style.display = "block";
+}
+
+// FERMER MODALE
 iconCloseModale.addEventListener("click", () => {
   modaleProject.style.display = "none";
 });
@@ -135,8 +144,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// supprimer projets
-
+// SUPPRIMER LES PROJETS
 const projectsModale = document.querySelector(".projects-pictures-modale");
 
 function projectsModales() {
@@ -183,7 +191,7 @@ function deleteProject(projectId) {
   });
 }
 
-// Modale ajout projets
+// AFFICHER MODALE POUR AJOUTS DE PROJETS
 const returnIcon = document.querySelector(".modale-return-icon");
 const selectCategory = document.querySelector(".js-categoryId");
 const inputFile = document.getElementById("photo");
@@ -229,6 +237,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// AFFICHER L'IMAGE UNE FOIS CHOISIE DANS LE DOSSIER
 inputFile.addEventListener("change", function () {
   const file = this.files[0];
   if (file) {
@@ -243,7 +252,7 @@ inputFile.addEventListener("change", function () {
   }
 });
 
-// Ajouter nouveau projet
+// AJOUTER NOUVEAU PROJET
 const submitModale = document.getElementById("form-modale-valid");
 
 async function AddNewProject(e) {
@@ -285,8 +294,7 @@ async function AddNewProject(e) {
 
 submitModale.addEventListener("click", AddNewProject);
 
-//gestion button submit
-
+// GESTION DU BACKROUND DU BOUTON SUBMIT DU FORM
 const submitBtnModale = document.getElementById("form-modale-valid");
 const titreInput = document.querySelector(".js-title");
 
@@ -308,8 +316,7 @@ titreInput.addEventListener("input", checkFormValidity);
 selectCategory.addEventListener("input", checkFormValidity);
 inputFile.addEventListener("input", checkFormValidity);
 
-// redirection vers section contact dans le lien du login
-
+// REDIRECTION VERS LA SECTION CONTACT DANS LE LIEN DU LOGIN
 document.addEventListener("DOMContentLoaded", () => {
   const sectionToScroll = window.location.hash.substring(1);
 

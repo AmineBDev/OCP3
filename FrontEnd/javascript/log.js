@@ -3,6 +3,7 @@ const form = document.querySelector("form");
 let formatEmailChecker = false;
 let formatPasswordChecker = false;
 
+// CHECK SI LE FORMAT DE L'EMAIL EST CORRECT
 async function emailChecker(value) {
   if (!value.match(/^[\w-_.]+@[\w-]+\.[a-z]{2,4}$/i)) {
     spanEmail.style.display = "block";
@@ -13,6 +14,7 @@ async function emailChecker(value) {
   }
 }
 
+// CHECK SI LE FORMAT DU MOT DE PASSE EST CORRECT
 async function passwordChecker(value) {
   if (
     value.length > 4 &&
@@ -54,6 +56,7 @@ form.addEventListener("submit", (e) => {
   login(user);
 });
 
+// FUNCTION POUR VALIDER OU NON LA CONNEXION
 async function login(user) {
   console.log(user);
 
