@@ -103,7 +103,8 @@ li:hover {
 	color: #B1663C;
 }
 
-header li {
+header li,
+.admin_edition_mode {
 	cursor: pointer;
 }
 

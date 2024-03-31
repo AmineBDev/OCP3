@@ -27,7 +27,6 @@
     margin: 0.83em;
 }
 
-
 #modaleProject, 
 #modaleForm {
     position: fixed;
@@ -38,15 +37,12 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
 }
-
 #modaleProject h2,
 #modaleForm h2 {
     color: black;
     font-weight: lighter;
     font-family: 'Work Sans';
 }
-
-
 .modale-project-container,
 .modale-form-container {
     position: fixed;
@@ -59,14 +55,11 @@
     border-radius: 10px;
     text-align: center;
 }
-
 .modale-projet-icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-
 .modale-close-icon,
 .modale-return-icon {
     display: flex;
@@ -74,19 +67,16 @@
     padding: 20px;
     font-size: 1.2rem;
 }
-
 .modale-project-container button {
     background: #1D6154;
     color: white;
 }
-
 .projects-pictures-modale {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     width: 70%;
     margin: 35px auto;
 }
-
 .projects-pictures-modale-container {
     position: relative;
     z-index: 10;
@@ -135,18 +125,15 @@
     margin: 30px auto;
 	border-radius: 5px;
 }
-
 .form-photo i {
     font-size: 76px;
 	color: #CBD6DC;
 	margin: 20px;
     margin-top: -10px;
 }
-
 .form-photo input {
 	display: none;
 }
-
 .form-photo label {
 	display: flex;
 	justify-content: center;
@@ -160,13 +147,10 @@
 	cursor: pointer;
 	margin-top: -10px;
 }
-
 .form-photo span {
     font-size: 10px;
     margin-top: 7px;
 }
-
-
 .form-title, .form-categories {
 	display: flex;
 	flex-direction: column;
@@ -174,7 +158,6 @@
 	width: 70%;
     margin: auto;
 }
-
 .form-title input,
 .form-categories select {
 	height: 50px;
@@ -184,7 +167,6 @@
 	width: 100%;
 	margin: 0.5em 0 1em 0;
 }
-
 #form-modale-valid {
     display: block;
 	font-family: 'Syne';
@@ -200,11 +182,9 @@
     position: relative;
     transition: 0.3s;
 }
-
 #form-modale-valid.valid {
     background: #1D6154;
 }
-
 .modale-form-container::after {
     position: absolute;
     content: "";
@@ -213,14 +193,12 @@
     width: 70%;
     transform: translate(-50%,-50%);
 }
-
 .form-photo img {
     width: auto;
     height: 100%;
     max-width: 100%;
     object-fit: contain;
 }
-
 .photo-selected i,
 .photo-selected label,
 .photo-selected input,
